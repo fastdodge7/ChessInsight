@@ -1,10 +1,7 @@
 package com.example.chessinsight.chessgame.domain.entity;
 
 import com.example.chessinsight.chessgame.domain.common.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -14,6 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "users")
 public class User extends BaseEntity {
 
     @Id
@@ -29,4 +27,9 @@ public class User extends BaseEntity {
     private String email;
 
     private boolean deletionFlag;
+
+    public boolean softDeletion() {
+        this.deletionFlag = true;
+        return this.deletionFlag;
+    }
 }

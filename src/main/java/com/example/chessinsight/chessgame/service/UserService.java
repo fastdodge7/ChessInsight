@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -42,7 +43,7 @@ public class UserService {
     @Transactional
     public Long softDeleteUser(Long id) {
         Optional<User> user = userRepository.findById(id);
-        User target = user.orElseThrow(() -> new RuntimeException("User not found"));
+        User target = user.orElseThrow(() -> new NoSuchElementException("User not found"));
         target.softDeletion();
         return target.getId();
     }

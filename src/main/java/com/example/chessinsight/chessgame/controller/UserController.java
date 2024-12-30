@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -33,7 +34,7 @@ public class UserController {
     @GetMapping("/user/{id}")
     public ApiResponse<UserDTO> getUserById(@PathVariable Long id) {
         Optional<User> user = userService.findById(id);
-        User target= user.orElseThrow(() -> new RuntimeException("User with id " + id + " not found"));
+        User target= user.orElseThrow(() -> new NoSuchElementException("User with id " + id + " not found"));
         return ApiResponse.onSuccess(UserConverter.convertToDTO(target));
     }
 

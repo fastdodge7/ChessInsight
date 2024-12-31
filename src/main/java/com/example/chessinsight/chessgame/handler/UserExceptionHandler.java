@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.NoSuchElementException;
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "com.example.chessinsight.chessgame.controlle")
 public class UserExceptionHandler {
 
     @ExceptionHandler(NoSuchElementException.class)

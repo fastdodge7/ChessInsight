@@ -6,6 +6,7 @@ import com.example.chessinsight.chessgame.domain.entity.User;
 import com.example.chessinsight.chessgame.dto.UserCreateDTO;
 import com.example.chessinsight.chessgame.dto.UserDTO;
 import com.example.chessinsight.chessgame.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import java.util.Optional;
 @RestController
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     UserController(UserService userService) {
@@ -25,7 +26,7 @@ public class UserController {
 
 
     @PostMapping("/user")
-    public ApiResponse<UserDTO> createUser(@RequestBody UserCreateDTO userData) {
+    public ApiResponse<UserDTO> createUser(@RequestBody @Valid UserCreateDTO userData) {
         User newUser = UserConverter.convertToEntity(userData);
         userService.saveUser(newUser);
         return ApiResponse.onSuccess(UserConverter.convertToDTO(newUser));
